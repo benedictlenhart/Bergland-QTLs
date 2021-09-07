@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#
+#SBATCH -J gather # A single job name for the array
+#SBATCH -c 10
+#SBATCH -N 1 # on one node
+#SBATCH -t 2:00:00 #<= this may depend on your resources
+#SBATCH --mem 40G #<= this may depend on your resources
+#SBATCH -o /scratch/bal7cg/score_error/gather.%A_%a.err # Standard error
+#SBATCH -e /scratch/bal7cg/score_output/gather.%A_%a.out # Standard output
+#SBATCH -p standard
+#SBATCH -A berglandlab
+### sbatch /home/bal7cg/R/R.scripts/Summer_project/Slurm_noargue.txt
+
+
+module load goolf/7.1.0_3.1.4
+module load gdal proj R/4.0.0
+module load intel/18.0 intelmpi/18.0
+
+Rscript \
+--vanilla \
+/home/bal7cg/R/R.scripts/Summer_project/perm_gmmat_gather.R
